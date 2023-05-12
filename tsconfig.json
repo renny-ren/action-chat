@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": "app/javascript",
+    "jsx": "react-jsx",
+    "paths": {
+      "components/*": [
+        "./components/*"
+      ],
+      "shared/*": [
+        "./shared/*"
+      ]
+    },
+    "target": "es6",
+    "module": "commonjs",
+    "noEmit": true,
+    "strict": false
+  }
+}
