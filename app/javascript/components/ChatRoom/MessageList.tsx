@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback, useMemo } from "react"
 import currentUser from "stores/current_user_store"
 import Avatar from "./Avatar"
 import useInfiniteScroll from "react-infinite-scroll-hook"
-import { Spin, Tooltip } from "antd"
+import { Spin } from "antd"
 
 interface MessageListProps {
   messages: []

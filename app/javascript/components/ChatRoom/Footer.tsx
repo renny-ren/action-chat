@@ -1,22 +1,21 @@
 import React, { useState, useRef, useEffect, useContext } from "react"
 import currentUser from "stores/current_user_store"
 import { MentionsInput, Mention } from "react-mentions"
-import data from "@emoji-mart/data"
+import data from '@emoji-mart/data'
 import Picker from "@emoji-mart/react"
 import { AppContext } from "components/AppContext"
 
 interface FooterProps {
   cable: any
-  subscribers: any
   content: string
   setContent: () => void
   chatChannel: any
 }
 
-const Footer: React.FC<FooterProps> = ({ cable, subscribers, content, setContent, chatChannel }) => {
+const Footer: React.FC<FooterProps> = ({ cable, content, setContent, chatChannel }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const inputRef = useRef(null)
-  const { setShowLoginModal } = useContext(AppContext)
+  const { setShowLoginModal, subscribers } = useContext(AppContext)
 
   useEffect(() => {
     if (content) inputRef.current.focus()
@@ -50,7 +49,7 @@ const Footer: React.FC<FooterProps> = ({ cable, subscribers, content, setContent
     setContent(newPlainTextValue)
   }
 
-  const onMention = (id, display) => {}
+  const onMention = (id, display) => { }
 
   const onClickOutside = (e) => {
     if (e.target.tagName.toLowerCase() === "div") {

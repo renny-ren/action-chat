@@ -12,9 +12,9 @@ interface LoginModalProps {
 const LoginModal: React.FC<LoginModalProps> = ({ isShow }) => {
   const nameRef = useRef(null)
   const [formErrors, setFormErrors] = useState([])
-  const { setShowLoginModal } = useContext(AppContext)
   const [mode, setMode] = useState("sign_up")
   const [nickname, setNickname] = useState("")
+  const { setShowLoginModal } = useContext(AppContext)
 
   const onSignIn = async (e) => {
     e.preventDefault()

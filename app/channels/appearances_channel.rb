@@ -13,12 +13,7 @@ class AppearancesChannel < ApplicationCable::Channel
   end
 
   def receive(data)
-    # ActionCable.server.broadcast("AppearancesChannel", data)
   end
-
-  # def self.subscribers
-  #   @@subscribers
-  # end
 
   def appear_user
     @@subscribers << {

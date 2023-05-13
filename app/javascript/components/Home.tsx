@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect, useContext } from "react"
 import ChatRoom from "./ChatRoom"
 import Header from "./Header"
+import { Helmet } from "react-helmet"
 
 const Home = ({}) => {
   return (
