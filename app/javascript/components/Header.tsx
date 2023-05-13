@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({}) => {
         <div className="fixed inset-x-0 top-0 z-50 flex h-12 md:h-14 items-center justify-between gap-12 px-4 transition sm:px-6 bg-white">
           <div className="absolute inset-x-0 top-full h-px transition bg-zinc-900/[.075] dark:bg-white/[.075]"></div>
           <div className="flex items-center">
-            <div className="text-slate-700">ActionChat</div>
+            <div className="text-slate-700 font-bold">ActionChat</div>
           </div>
 
           <div className="flex items-center gap-4">

@@ -11,5 +11,10 @@ Rails.application.routes.draw do
 
   scope "v1", as: "api", module: "api" do
     resources :messages, only: :index
+    resources :users, only: [:show] do
+      collection do
+        get :fake_name
+      end
+    end
   end
 end

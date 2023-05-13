@@ -1,7 +1,8 @@
 import React, { Fragment, useRef, useState, useContext } from "react"
 import { AppContext } from "components/AppContext"
 import { Dialog, Transition } from "@headlessui/react"
-import { message } from "antd"
+import { message, Tooltip } from "antd"
+import { ReloadOutlined } from "@ant-design/icons"
 import * as UserApi from "shared/api/user"
 
 interface LoginModalProps {
@@ -13,6 +14,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isShow }) => {
   const [formErrors, setFormErrors] = useState([])
   const { setShowLoginModal } = useContext(AppContext)
   const [mode, setMode] = useState("sign_up")
+  const [nickname, setNickname] = useState("")
 
   const onSignIn = async (e) => {
     e.preventDefault()
@@ -34,7 +36,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isShow }) => {
     e.preventDefault()
     const res = await UserApi.registerUser({
       username: e.target.elements.username.value,
-      nickname: e.target.elements.nickname.value,
+      nickname: nickname,
     })
     const data = await res.json
     if (res.ok) {
@@ -50,6 +52,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ isShow }) => {
   const toggleMode = () => {
     setMode(mode === "sign_in" ? "sign_up" : "sign_in")
     setFormErrors([])
+  }
+
+  const onFetchFakeName = async () => {
+    const res = await UserApi.fetchFakeName()
+    const data = await res.json
+    setNickname(data.name)
   }
 
   return (
@@ -80,14 +88,14 @@ const LoginModal: React.FC<LoginModalProps> = ({ isShow }) => {
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 mx-8 w-full sm:max-w-lg">
                 <section className="bg-gray-50 dark:bg-gray-900">
-                  <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                    <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                  <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto">
+                    <div className="flex items-center mb-6 text-2xl font-bold text-slate-700 dark:text-white">
                       ActionChat
                     </div>
                     {mode === "sign_up" ? (
                       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                          <h1 className="text-xl font-semibold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Sign up to start chat
                           </h1>
                           <form className="space-y-4 md:space-y-6" onSubmit={onSignUp}>
@@ -96,10 +104,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ isShow }) => {
                                 htmlFor="username"
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                               >
-                                username
+                                Username
                               </label>
                               <input
-                                type="username"
+                                type="text"
                                 name="username"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Used for login"
@@ -110,21 +118,28 @@ const LoginModal: React.FC<LoginModalProps> = ({ isShow }) => {
                             <div>
                               <label
                                 htmlFor="nickname"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                className="flex items-center block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                               >
-                                nickname
+                                Nickname
+                                <Tooltip title="Use a random name">
+                                  <button
+                                    type="button"
+                                    onClick={onFetchFakeName}
+                                    className="outline-none inline-flex ml-2 text-xs text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                  >
+                                    <ReloadOutlined />
+                                  </button>
+                                </Tooltip>
                               </label>
                               <input
-                                type="nickname"
+                                type="text"
                                 name="nickname"
+                                value={nickname}
+                                onChange={(e) => setNickname(e.target.value)}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Used for display"
                                 required
                               />
-                            </div>
-
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-start"></div>
                             </div>
 
                             {!!formErrors.length && (
@@ -141,7 +156,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isShow }) => {
                               type="submit"
                               className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             >
-                              Sign in
+                              Sign up
                             </button>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                               Already have an account?
@@ -158,7 +173,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isShow }) => {
                     ) : (
                       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                          <h1 className="text-xl font-semibold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Sign in to your account
                           </h1>
                           <form className="space-y-4 md:space-y-6" onSubmit={onSignIn}>
@@ -167,13 +182,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ isShow }) => {
                                 htmlFor="username"
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                               >
-                                username
+                                Username
                               </label>
                               <input
                                 type="username"
                                 name="username"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Used for login"
                                 required
                               />
                             </div>

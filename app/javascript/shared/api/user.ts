@@ -8,6 +8,10 @@ export function fetchUser(id) {
   return get(`/v1/users/${id}`)
 }
 
+export function fetchFakeName() {
+  return get("/v1/users/fake_name")
+}
+
 export function updateUser(id, data) {
   return put(`/v1/users/${id}`, data)
 }
