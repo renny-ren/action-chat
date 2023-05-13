@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({}) => {
 
           <div className="flex items-center gap-4">
             <nav className="hidden md:block"></nav>
-            <div>
+            <div className="flex items-center">
               {subscribers.length > 1 && (
                 <Avatar.Group
                   size="small"
@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({}) => {
               )}
             </div>
             <div className="hidden md:block md:h-5 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15"></div>
-            <div>{currentUser.nickname()}</div>
+            <div className="text-gray-600">{currentUser.nickname()}</div>
             <div>
               {currentUser.isSignedIn() ? (
                 <UserBar />
