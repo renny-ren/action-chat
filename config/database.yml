@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: action_chat_production
-  username: action_chat
-  password: <%= ENV["ACTION_CHAT_DATABASE_PASSWORD"] %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
