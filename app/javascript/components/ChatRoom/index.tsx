@@ -6,9 +6,9 @@ import type { ChatMessage } from "./types"
 import { message } from "antd"
 import * as UserApi from "shared/api/user"
 
-interface ChatRoomProps { }
+interface ChatRoomProps {}
 
-const ChatRoom: React.FC<ChatRoomProps> = ({ }) => {
+const ChatRoom: React.FC<ChatRoomProps> = ({}) => {
   const messagesRef = useRef()
   const [messages, setMessages] = useState([])
   const [isFetching, setIsFetching] = useState(false)
@@ -19,8 +19,8 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ }) => {
   messagesRef.current = messages
 
   useEffect(() => {
-    subscribeChatChannel()
-  }, [])
+    resubscribeChannel()
+  }, [gon.user_meta])
 
   useEffect(() => {
     fetchMessages()
@@ -28,6 +28,14 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ }) => {
       consumer.disconnect()
     }
   }, [])
+
+  const resubscribeChannel = () => {
+    if (chatChannel) {
+      chatChannel.unsubscribe()
+      consumer.disconnect()
+    }
+    subscribeChatChannel()
+  }
 
   const subscribeChatChannel = () => {
     const channel = consumer.subscriptions.create("ChatChannel", {
@@ -77,12 +85,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ }) => {
                 />
               </div>
             </div>
-            <Footer
-              cable={consumer}
-              content={content}
-              setContent={setContent}
-              chatChannel={chatChannel}
-            />
+            <Footer cable={consumer} content={content} setContent={setContent} chatChannel={chatChannel} />
           </div>
         </div>
       </div>
