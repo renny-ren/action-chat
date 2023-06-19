@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => "/ac_ws"
+
   devise_for :users, controllers: {
                        registrations: :registrations,
                        sessions: :sessions,
