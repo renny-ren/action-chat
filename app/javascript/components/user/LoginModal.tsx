@@ -28,7 +28,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isShow }) => {
       gon.user_meta = data.user_meta
       localStorage.setItem("username", e.target.elements.username.value)
     } else {
-      setFormErrors(data.message)
+      setFormErrors([data.message])
     }
   }
 
