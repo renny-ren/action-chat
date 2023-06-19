@@ -3,7 +3,7 @@ ActionChat is a simple chatroom application built with ActionCable and React.
 
 ![demo2](https://github.com/renny-ren/action-chat/assets/19547819/80fbe930-f2b0-4834-9fad-cd3f56c1adcc)
 
-Live demo: https://aii.chat
+Live demo: [https://ac.aiichat.cn](https://ac.aiichat.cn/)
 
 ## Features
 - Text, emoji messages
