@@ -1,4 +1,5 @@
 # ActionChat
+
 ActionChat is a simple chatroom application built with ActionCable and React.
 
 ![demo2](https://github.com/renny-ren/action-chat/assets/19547819/80fbe930-f2b0-4834-9fad-cd3f56c1adcc)
@@ -6,19 +7,23 @@ ActionChat is a simple chatroom application built with ActionCable and React.
 Live demo: [https://ac.aiichat.cn](https://ac.aiichat.cn/)
 
 ## Features
+
 - Text, emoji messages
 - Responsive layout
 - Infinite scroll to fetch messages
 - Show real-time online members
 
 ## Tech Stack
+
 - React
 - TailwindCSS
 - ActionCable (Rails)
- 
+
 ## Setup
+
 1. run `bundle install`
-2. run `bin/dev`
+2. run `yarn install`
+3. run `bin/dev`
 
 Open your web browser and navigate to http://localhost:3000
 
